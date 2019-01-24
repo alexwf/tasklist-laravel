@@ -34,7 +34,7 @@
             Pendentes
         </div>
 
-    <div class="panel-body">
+    <div class="panel-body" style="overflow-x:auto;">
         <table class="table table-striped task-table">
             <thead>
                 <th>Situação</th>
@@ -52,12 +52,9 @@
                             </button>
                             {{Form::close()}}
                         </td>
-                        <td class="table-text">
-                            <div class="form-check">
-                                <h4><a href="{{ 'edit/'.$task->id }}">{{ $task->name }}</a></h3>
-                            </div>
+                        <td>
+                            <h4><a href="{{ 'edit/'.$task->id }}">{{ $task->name }}</a></h4>
                         </td>
-
                         <td width="50px">
                             <form action="/task/{{ $task->id }}" method="POST">
                                 {{ csrf_field() }}
@@ -82,7 +79,7 @@
             Concluídas
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body" style="overflow-x:auto;">
             <table class="table table-striped task-table">
                 <thead>
                     <th>Situação</th>
@@ -100,12 +97,9 @@
                           </button>
                           {{Form::close()}}
                       </td>
-                      <td class="table-text">
-                          <div class="form-check">
-                              <h4><a href="{{ 'edit/'.$task->id }}">{{ $task->name }}</a></h3>
-                          </div>
+                      <td>
+                          <h4><a href="{{ 'edit/'.$task->id }}">{{ $task->name }}</a></h4>
                       </td>
-
                       <td width="50px">
                           <form action="/task/{{ $task->id }}" method="POST">
                               {{ csrf_field() }}

@@ -53,9 +53,16 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|max:255',
+            ],
+            [
+                'required' => 'Preencha o nome da tarefa',
+                'max' => 'O nome da tarefa não pode ser maior que 255 caracteres.'
+            ]
+        );
 
         Task::create([
             'name' => $request->name,
