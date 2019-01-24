@@ -25,6 +25,8 @@ class TaskController extends Controller
      */
     public function __construct(TaskRepository $tasks)
     {
+        //$this->middleware('auth');
+
         $this->tasks = $tasks;
     }
 
@@ -36,8 +38,10 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        return view('tasks', [
-            'tasks' => $tasks
+        $tasks = Task::orderBy('created_at', 'asc')->get();
+
+        return view('tasks.index', [
+            'tasks' => $tasks,
         ]);
     }
 
@@ -53,26 +57,62 @@ class TaskController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $request->user()->tasks()->create([
+        Task::create([
             'name' => $request->name,
+            'status' => $request->status
         ]);
 
-        return redirect('/tasks');
+        return redirect('/');
     }
 
-     /**
+    /**
      * Destroy the given task.
      *
-     * @param  Request  $request
-     * @param  string  $taskId
+     * @param  Task  $task
      * @return Response
      */
-     public function destroy(Request $request, Task $task)
-     {
-         $this->authorize('destroy', $task);
+    public function destroy($task)
+    {
+        $task = Task::findOrFail($task);
+        $task->delete();
+        return redirect('/');
+    }
 
-         $task->delete();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);
 
-         return redirect('/tasks');
-     }
+        return view('update')->withTask($task);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        $task->update($request->all());
+        return redirect("/");
+    }
+
+    public function changeStatus($id)
+    {
+        $task = Task::findOrFail($id);
+
+        $task->status = !$task->status;
+
+        $task->update();
+        return redirect("/");
+    }
 }
