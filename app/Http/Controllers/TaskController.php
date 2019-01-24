@@ -25,16 +25,14 @@ class TaskController extends Controller
      */
     public function __construct(TaskRepository $tasks)
     {
-        //$this->middleware('auth');
-
         $this->tasks = $tasks;
     }
 
     /**
-     * Display a list of all of the user's task.
+     * Exibe as tarefas
      *
      * @param  Request  $request
-     * @return Response
+     * @return View tasks
      */
     public function index(Request $request)
     {
@@ -46,10 +44,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Create a new task.
+     * Cria uma nova tarefa
      *
      * @param  Request  $request
-     * @return Response
+     * @return View tasks
      */
     public function store(Request $request)
     {
@@ -73,10 +71,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Destroy the given task.
+     * Apaga a tarefa
      *
      * @param  Task  $task
-     * @return Response
+     * @return View tasks
      */
     public function destroy($task)
     {
@@ -86,10 +84,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Retorna a view de modo edição
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View update
      */
     public function edit($id)
     {
@@ -99,11 +97,11 @@ class TaskController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza a tarefa
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View tasks
      */
     public function update(Request $request, $id)
     {
@@ -113,6 +111,12 @@ class TaskController extends Controller
         return redirect("/");
     }
 
+    /**
+     * Altera a situação da tarefa
+     *
+     * @param  int  $id
+     * @return View tasks
+     */
     public function changeStatus($id)
     {
         $task = Task::findOrFail($id);

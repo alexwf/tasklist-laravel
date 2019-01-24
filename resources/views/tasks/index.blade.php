@@ -48,7 +48,7 @@
                         <td width="100px">
                             {{Form::model($task, array("method" => "post", "action" => array("TaskController@changeStatus", $task->id)))}}
                             <button class="btn btn-light">
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span  class="glyphicon glyphicon-ok todo" aria-hidden="true"></span>
                             </button>
                             {{Form::close()}}
                         </td>
